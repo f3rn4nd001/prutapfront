@@ -1,0 +1,30 @@
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+@media (min-width: 770px){
+  .texttitulo{
+    font-size:35px;
+    margin: 1%;
+  }
+}
+.enlace {
+    display:inline;
+    border:0;
+    padding:0;
+    margin:0;
+    text-decoration:none;
+    background:none;
+    color:#000000;
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    line-height:1em;
+  }
+  
+  .enlace:hover {
+    text-decoration:underline;
+    color:#98989e;
+    cursor:pointer;
+  }

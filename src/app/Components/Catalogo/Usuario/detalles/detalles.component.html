@@ -1,0 +1,72 @@
+<div class="container">
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog modal-xl" style=" padding-left: calc(var(--bs-gutter-x) * 2);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="col-sm-11 col-md-11 col-lg-11 col-xl-11 mt-3 center texttitulo" id="staticBackdropLabel">{{title}}</h1>
+                    <button type="button" [mat-dialog-close]="" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-2 col-lg-2 col-xl-1"><strong>Nombre: </strong></div>
+                        <div class="col-md-3 col-lg-4 col-xl-3">{{Ususario.Nombre}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1"><strong>Id: </strong></div>
+                        <div class="col-md-5 col-lg-4 col-xl-3">{{Ususario.ecodUsuario}} </div>
+                        <div class="col-md-2 col-lg-2 col-xl-1"><strong>Estatus: </strong></div>
+                        <div class="col-md-3 col-lg-4 col-xl-3"> {{Ususario.Estatus}} </div>
+                       </div>
+                    <span layout="row"><hr flex/></span>
+                    <div class="row mt-3">
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>CRUP: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tCRUP == null">N/A</div><div class="col-md-10 col-lg-4 col-xl-3" *ngIf="Ususario.tCRUP != null">{{Ususario.tCRUP}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>RFC: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tRFC == null">N/A</div><div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tRFC != null">{{Ususario.tRFC}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>Edad: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.nEdad == null">N/A</div><div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.nEdad != null">{{Ususario.nEdad}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>Telefono: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.nTelefono == null" >N/A</div><div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.nTelefono != null">{{Ususario.nTelefono}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>Sexo: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tSexo == null" >N/A</div><div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tSexo != null">{{Ususario.tSexo}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>Notas: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tNotas == null" >N/A</div><div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.tNotas != null">{{Ususario.tNotas}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1 centrardivs"><strong>Imagen: </strong></div>
+                        <div class="col-md-4 col-lg-4 col-xl-3 centrardivs" *ngIf="Ususario.iUsuario == null" >N/A</div><div class="col-md-4 col-lg-4 col-xl-3 " *ngIf="Ususario.iUsuario != null"><img width="100%" alt="Imagen de usuario" class="container" src="{{Ususario.iUsuario}}"></div>
+                    </div>     
+                    <span layout="row"><hr flex/></span>         
+                    <div class="row">
+                        <div class="row mt-3">
+                            <div class="col-md-2 col-lg-2 col-xl-1"><strong>Creador: </strong></div>
+                            <div class="col-md-6 col-lg-6 col-xl-4">{{Ususario.nombresCreador}}</div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-lg-2 col-xl-2"><strong>FH Creacion</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xl-3"> {{Ususario.fhCreacion}} </div>
+                        </div>
+                    </div>
+                    <span layout="row" *ngIf="mensjerisqls.length>0"><hr flex/></span>         
+                    <h3 class="text-primary text-center" *ngIf="mensjerisqls.length>0">Gmails</h3>
+                    <div style="overflow-x: auto;" *ngIf="mensjerisqls.length>0">
+                        <table mat-table [dataSource]="dataSource" class=" container table table-striped mat-elevation-z8 full-data-table">      
+                            <ng-container matColumnDef="tCorreo">
+                                <th mat-header-cell *matHeaderCellDef style="text-align: center;" class="colorprimary"><h4 style="position:relative;">Correo</h4></th>
+                                <td mat-cell *matCellDef="let element" style="text-align: center; padding: 10px; min-width:16em;">
+                                  <div *ngIf="element.tCorreo == null">N/A</div><div *ngIf="element.tCorreo != null">{{element.tCorreo}}</div>
+                                </td>
+                              </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                            <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>            
+                        </table>
+                    </div>   
+                    <span layout="row" *ngIf="Ususario.nombresEditor !=  null " ><hr flex/></span>         
+                    <h3 class="text-primary text-center" *ngIf="Ususario.nombresEditor !=  null "><strong>Estatus de Edicicion</strong></h3>
+                    <div class="row" *ngIf="Ususario.nombresEditor !=  null ">
+                      <div class="col-md-1"><strong>Editor: </strong></div>
+                      <div class="col-md-4"> {{Ususario.nombresEditor}} </div>
+                      <div class="col-md-2"></div>
+                      <div class="col-md-2"><strong>Fh. Edicion: </strong></div>
+                      <div class="col-md-3"> {{Ususario.fhEdicion}} </div>
+                    </div>           
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

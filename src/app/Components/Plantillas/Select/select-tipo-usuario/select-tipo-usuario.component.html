@@ -1,0 +1,10 @@
+<form class="container row" [formGroup]="NuevoFormGroup" >
+        <mat-form-field>
+            <mat-label>Tipo de Usuario</mat-label>
+            <mat-select disableRipple [(ngModel)]="datos.ecodTipoUsuario" formControlName="ecodTipoUsuario" (selectionChange)="selectsa()">
+              <mat-option *ngFor="let food of TipoUsuario" [value]="food.ecodTipoUsuario">
+                {{food.tNombre}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+</form>

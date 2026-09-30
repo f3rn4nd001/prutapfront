@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="modal" tabindex="-1">
+        <div class="modal-dialog modal-xl" style=" padding-left: calc(var(--bs-gutter-x) * 2);">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="col-sm-11 col-md-11 col-lg-11 col-xl-11 mt-3 center texttitulo" id="staticBackdropLabel">{{title}}</h1>
+                    <button type="button" [mat-dialog-close]="" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                
+                    <div class="row">
+                        <div class="col-md-2 col-lg-2 col-xl-1"><strong>Nombre:</strong></div>
+                        <div class="col-md-3 col-lg-4 col-xl-3">{{Perfiles.tNombre}}</div>
+                        <div class="col-md-2 col-lg-2 col-xl-1"> <strong>Id:</strong></div>
+                        <div class="col-md-5 col-lg-4 col-xl-5">{{Perfiles.ecodTipoUsuario}} </div>
+                    </div>
+                    
+                    <span layout="row"><hr flex/></span>         
+                    <div class="row">
+                        <div class="row mt-3">
+                            <div class="col-md-2 col-lg-2 col-xl-1"><strong>Creador: </strong></div>
+                            <div class="col-md-6 col-lg-6 col-xl-4">{{Perfiles.nombresCreador}}</div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2 col-lg-2 col-xl-2"><strong>FH Creacion</strong></div>
+                            <div class="col-md-6 col-lg-6 col-xl-3"> {{Perfiles.fhCreacion}} </div>
+                        </div>
+                    </div>
+
+                    <span layout="row" *ngIf="Perfiles.nombresEditor !=  null " ><hr flex/></span>         
+                    <h3 class="text-primary text-center" *ngIf="Perfiles.nombresEditor !=  null "><strong>Estatus de Edicicion</strong></h3>
+                    <div class="row" *ngIf="Perfiles.nombresEditor !=  null ">
+                      <div class="col-md-1"><strong>Editor: </strong></div>
+                      <div class="col-md-4"> {{Perfiles.nombresEditor}} </div>
+                      <div class="col-md-2"></div>
+                      <div class="col-md-2"><strong>Fh. Edicion: </strong></div>
+                      <div class="col-md-3"> {{Perfiles.fhEdicion}} </div>
+                    </div>   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

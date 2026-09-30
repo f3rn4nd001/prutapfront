@@ -1,0 +1,10 @@
+<mat-form-field class="example-full-width" appearance="outline">
+    <mat-label>Auto Usuario {{title}}</mat-label>
+    <input matInput [matAutocomplete]="auto" [formControl]="ecodctl"  placeholder="Auto Usuario {{title}}"  nullValue>
+    <mat-autocomplete #auto="matAutocomplete"  [displayWith]="display" (optionSelected)="selectsa()">
+        <mat-option value="" style="color: black;">Seleccionar...</mat-option>
+        <mat-option *ngFor="let state of filtered | async" [value]="state">
+        <span>{{state.Nombre}}</span>
+        </mat-option>
+    </mat-autocomplete>
+</mat-form-field>  

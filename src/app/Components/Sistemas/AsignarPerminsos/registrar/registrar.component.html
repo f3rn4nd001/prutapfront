@@ -1,0 +1,80 @@
+<div class="container">
+    <div  style="padding-left: calc(var(--bs-gutter-x) * 2.5);">
+        <nav class="mt-3 navbar navbar-expand-lg colorprimarytransportes center nav-contenedor-industrial">
+            <div class="container-fluid center">
+                <a class="navbar-brand center" ><h1 style="color: rgb(0, 0, 0);" class="texttitulo">Asignar permisos</h1></a>
+            </div> 
+        </nav>
+        <div class="row row" style="justify-content:end">
+            <div class="mt-3 mb-2 col-md-12 col-lg-4 col-xl-2">
+                <button matTooltip="Regresar a la consulta" style="min-width:100%; min-height: 80%; text-align-last:center; padding-left:10px" type="button" class="btn colorprimarytransportes" (click)="reConsulta()">Consulta</button> 
+            </div>
+            <div class="mt-3 mb-2 col-md-12 col-lg-4 col-xl-2" matTooltip="Guardar datos">
+                <button style="min-width:100%; min-height: 80%; text-align-last:center; padding-left:10px"  type="button" class="btn colorprimarytransportes" (click)="Guardar()">Guardar</button> 
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body row">
+                <div class="col-12 col-sm-12 col-md-4 ol-lg-4 col-xl-4 mb-2">
+                    <app-auto-usuario [usuarioPadre]="Nombre()" (usuarioSeleccionado)="onUsuario($event)"></app-auto-usuario>
+                </div>
+                <div *ngIf="sqlUsusario().ecodUsuario" class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8 row">
+                    <div class="col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6 mb-2">
+                        <strong>Id : </strong>{{sqlUsusario().ecodUsuario}}
+                    </div>
+                    <div class="col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6 mb-2">
+                        <strong>Nombre : </strong>{{sqlUsusario().Nombre}}
+                    </div>
+                    <div class="col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6 mb-2">
+                        <strong>Tipo de usuario : </strong>{{sqlUsusario().TipoUsuario}}
+                    </div>
+                    
+                    <div *ngIf="sqlUsusario().tCRUP" class="col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6 mb-2">
+                        <strong>Curp : </strong>{{sqlUsusario().tCRUP}}
+                    </div>
+                    <div *ngIf="sqlUsusario().tRFC" class="col-12 col-md-6 col-sm-6 col-lg-6 col-xl-6 mb-2">
+                        <strong>RFC : </strong>{{sqlUsusario().tRFC}}
+                    </div>
+                </div>
+                <div class="row col-12 col-sm-12 col-lg-12 col-xl-12">
+                <div class="mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6" style="border:ridge" *ngFor="let menu of dataSourceRutas(); let i= index">
+                    <div class="row">
+                            <mat-checkbox class="col-12 col-sm-2 col-md-2 col-lg-2 col-xl-2" style="padding-top: 0.5%;" (change)="setAll($event.checked,i)">All</mat-checkbox>
+                            <span class="col-3 col-sm-2 col-md-1 col-lg-2 col-xl-1" style=" padding-top: 0.5%;"><mat-checkbox [(ngModel)]="menu.valor" (ngModelChange)="setanMenu($event,i)"></mat-checkbox></span>
+                            <mat-expansion-panel class="row col-9 col-sm-8 col-md-9 col-lg-8 col-xl-9" hideToggle style=" box-shadow:none; font-size:13px;">
+                                <mat-expansion-panel-header class="row">
+                                    <mat-panel-description (click)="mostrarsubmenu(i)" style=" font-size:15px; min-width:80%;" >
+                                        {{menu.tNombreMenu}} 
+                                        <mat-icon class="mat-icon-rtl-mirror">{{menu.mostrarSubmenu ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+                                <div class="row col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12"  *ngFor="let submenu of menu.Submenu  let j = index">
+                                    <mat-checkbox class="col-3 col-sm-3 col-md-2  col-lg-3 col-xl-2"  style=" padding-top: 0.5%;" [(ngModel)]="submenu.valor"  (ngModelChange)="setanSub($event,i,j)"></mat-checkbox>
+                                    <mat-expansion-panel *ngIf="submenu.Controlador.length > 0" class="col-8 col-sm-9 col-md-10  col-lg-9 col-xl-10 mat-expansion-panelcliente" hideToggle style="box-shadow:none; background:rgba(0,0,0,-1.4);">
+                                        <mat-expansion-panel-header class="col-12 col-sm-12 col-md-9 col-lg-9 col-xl-10 ">
+                                            <mat-panel-description style="font-size:15px; overflow-y: auto;"> 
+                                                {{submenu.tNombreSubMenu}}
+                                                <mat-icon class="mat-icon-rtl-mirror" *ngIf="submenu.Controlador.length > 0">{{submenu.mostrarcontroler ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                                            </mat-panel-description>
+                                        </mat-expansion-panel-header>
+                                        <div *ngIf="submenu.Controlador.length > 0" class="col-12 col-sm-12 col-md-12  col-lg-12 col-xl-12">
+                                            <div *ngFor=" let controlador of submenu.Controlador; let x = index">
+                                                <div style="max-height:50px; overflow-y:auto;">
+                                                    <mat-checkbox (ngModelChange)="setanCont($event,i,j,x)" style=" padding-top: 0.5%;" [(ngModel)]="controlador.valor"></mat-checkbox>
+                                                    {{controlador.tNombreController}}                             
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                    <div *ngIf="submenu.Controlador.length == 0" class="col-8 col-sm-9 col-md-9  col-lg-9 col-xl-10 mat-expansion-panel-header mat-focus-indicator ng-tns-c2690051721-8 ng-tns-c1859850774-7 ng-star-inserted">
+                                        {{submenu.tNombreSubMenu}}
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </div>
+                </div>    
+</div>
+            </div>
+        </div>
+    </div>
+</div>

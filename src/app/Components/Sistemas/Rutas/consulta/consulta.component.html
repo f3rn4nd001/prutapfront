@@ -1,0 +1,47 @@
+<div class="resolicion">
+    <div class="container">
+        <div class="sert my-3" style=" padding-left: calc(var(--bs-gutter-x) * 2);"> 
+            <nav class="mt-1 navbar navbar-expand-lg colorprimary center">
+            <div class="container-fluid center">
+                <a class="navbar-brand center"><h1 class="texttitulo">{{tituloConsulta}}</h1></a>
+            </div> 
+            </nav>
+            <div class="">
+                <div style="text-align-last: end" class="mt-3 mb-3">
+                    <a *ngFor="let boton of botones"> 
+                        <a *ngFor="let control of controller">
+                          <a *ngIf="control.urlController===boton.relURL" class="enlace contras" href="{{boton.relURL}}" style="padding-left:10px;"><button class="btn colorprimarytransportes" style="min-width:205px;text-align-last:center" >{{boton.nombre}}</button> </a>
+                        </a> 
+                      </a>
+                </div>
+            
+                <div class="card">
+
+                  <div *ngFor="let menu of dataSourceControllers let i = index "  class="tree">
+                    <ul>
+                      <li>
+                        <a (click)="mostrarfiltro(i)">{{menu.tNombre}}</a>
+                        <div *ngIf="menu.valor">
+                          <ul>
+                            <li *ngFor="let sub of menu.children let b = index ">
+                              <a (click)="mostrarfiltrob(i,b)">{{sub.tNombre}}</a>
+                              <div *ngIf="sub.valor">
+                                <ul>
+                                  <li *ngFor="let control of sub.children">
+                                    <a >{{control.tNombre}}</a>
+                                  </li>
+                                </ul>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+
+
+            </div>
+            
+        </div>
+    </div>
+</div>

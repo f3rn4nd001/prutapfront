@@ -1,0 +1,28 @@
+@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+@import '../node_modules//alertifyjs//build//css/themes/bootstrap.min.css';
+
+.colorprimary{
+  background: #ffc107;
+  color: #000000;
+}
+
+body{
+  background:#dcdcdc
+}
+
+@media (max-width: 767px){
+  .destock{
+    display: none;
+  }
+}
+
+@media (min-width: 770px){
+  .movil{
+    display: none;
+  }
+}
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

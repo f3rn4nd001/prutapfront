@@ -1,0 +1,84 @@
+.nav-contenedor-industrial {
+  background-color: #c59b3f; 
+  border: 4px solid #ca9d3d;
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px #00000055, 3px 3px 10px rgba(0, 0, 0, 0.6);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-contenedor-industrial::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.05) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  z-index: 0;
+}
+  .center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+
+@media (min-width: 771px){
+  .texttitulo{
+    font-size:35px;
+    margin: 1%;
+    color: white;
+  }
+}
+@media (max-width: 770px){
+  .movilc{
+  text-align: center;
+  display: flex;
+  }
+  
+  
+  .texttitulo{
+    margin: 1%;
+    color: white;
+  }
+}
+.posiz{
+    z-index:1
+  }
+
+  ::ng-deep .mat-form-field-appearance-outline  {
+    width: 100% !important;
+  }
+  ::ng-deep .mat-expansion-panel{
+    box-sizing : border-box !important;
+  }
+  ::ng-deep .mat-expansion-panel-body{
+    padding: 0px !important;
+  }
+  ::ng-deep .mat-expansion-panel-header{
+    padding : 0px !important;
+  }
+  ::ng-deep .mat-mdc-select-arrow {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid;
+    margin: 0 4px;
+}
+li{
+  list-style-type: none;
+}
+
+
+.colorprimarytransportes{
+    background: #ca9d3d;
+    color: #000000;
+}

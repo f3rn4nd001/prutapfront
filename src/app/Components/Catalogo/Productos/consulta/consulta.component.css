@@ -1,0 +1,103 @@
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align:center;
+}
+@media (min-width: 770px){
+  .texttitulo{
+    font-size:35px;
+    margin: 1%;
+  }
+}
+.enlace {
+    display:inline;
+    border:0;
+    padding:0;
+    margin:0;
+    text-decoration:none;
+    background:none;
+    color:#000000;
+    font-family: arial, sans-serif;
+    font-size: 1em;
+    line-height:1em;
+  }
+  
+  .enlace:hover {
+    text-decoration:underline;
+    color:#98989e;
+    cursor:pointer;
+  }
+
+  ::ng-deep .mat-mdc-form-field {
+    display: flex !important;
+}
+
+.centrardivs{
+  height: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+}
+.enlacegrafica{
+  display:inline;
+  border:0;
+  padding:0;
+  margin:0;
+  text-decoration:none;
+  background:none;
+  color:#000000;
+  font-family: arial, sans-serif;
+  font-size: 1em;
+  line-height:1em;
+}
+
+
+
+
+
+
+.circle-chart__circle {
+  animation: circle-chart-fill 2s reverse; 
+  transform: rotate(-90deg);
+  transform-origin: center;
+}
+
+.circle-chart__circle--negative {
+  transform: rotate(-90deg) scale(1,-1);
+}
+
+.circle-chart__info {
+  animation: circle-chart-appear 2s forwards;
+  opacity: 0;
+  transform: translateY(0.3em);
+}
+
+@keyframes circle-chart-fill {
+  to { stroke-dasharray: 0 100; }
+}
+
+@keyframes circle-chart-appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.grid {
+  display: grid;
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 31em) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+

@@ -1,0 +1,202 @@
+<div class="resolicion">
+  <div class="container">
+    <div class="sert my-3" style=" padding-left: calc(var(--bs-gutter-x) * 2);"> 
+      <nav class="mt-1 navbar navbar-expand-lg colorprimary center">
+        <div class="container-fluid center">
+          <a class="navbar-brand center"><h1 class="texttitulo">{{tituloConsulta}}</h1></a>
+        </div> 
+      </nav>
+      <div class="">
+        <div style="text-align-last: end;text-align:-webkit-right" class="mt-3 mb-3">
+          <button class="btn btn-warning text-white" style="min-width:205px;text-align-last:center"  (click)="exportarAExcel()">Excel</button>
+          <button class="btn btn-warning text-white" style="min-width:205px;text-align-last:center"  (click)="generarPDF()">PDF</button>
+          
+          <svg *ngIf="graficaA.length >= 1" class="circle-chart" viewBox="0 0 33.83098862 33.83098862" width="100" height="90" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+            <a class="enlacegrafica" *ngFor="let grafica of graficaA">
+              <circle class="circle-chart__circle" [attr.stroke]="grafica.color" stroke-width="2" [attr.stroke-dasharray]="grafica.vc + ',100'" [attr.stroke-dashoffset]="-grafica.inicio" stroke-linecap="butt" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431"/>
+              <g class="circle-chart__info" *ngIf="grafica.title">
+                <text class="circle-chart__percent" x="16.91549431" y="15.5" text-anchor="middle" font-size="8">{{grafica.vc.toString().split('.')[0] }}%</text>
+                <text class="circle-chart__subline" x="16.91549431" y="20.5" text-anchor="middle" font-size="5">{{grafica.title}}</text>
+              </g>
+            </a>
+          </svg>
+          <svg *ngIf="graficaB.length >= 1" class="circle-chart" viewBox="0 0 33.83098862 33.83098862" width="100" height="90" xmlns="http://www.w3.org/2000/svg">
+            <circle class="circle-chart__background" stroke="#efefef" stroke-width="2" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431"/>
+            <a class="enlacegrafica" *ngFor="let grafica of graficaB">
+              <circle class="circle-chart__circle" [attr.stroke]="grafica.color" stroke-width="2" [attr.stroke-dasharray]="grafica.vc + ',100'" [attr.stroke-dashoffset]="-grafica.inicio" stroke-linecap="butt" fill="none" cx="16.91549431" cy="16.91549431" r="15.91549431" />
+              <g class="circle-chart__info" *ngIf="grafica.title">
+                <text class="circle-chart__percent" x="16.91549431" y="15.5" text-anchor="middle" font-size="8">{{grafica.vc.toString().split('.')[0] }}%</text>
+                <text class="circle-chart__subline" x="16.91549431" y="20.5" text-anchor="middle" font-size="5">{{grafica.title}}</text>
+              </g>
+            </a>  
+          </svg>
+          <button class="btn" (click)="mostrarfiltro()" data-toggle="tooltip" data-placement="right" title="Precione para desplegar los filtros">
+            <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 512.000000 512.000000" preserveAspectRatio="xMidYMid meet">
+              <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)" fill="#000000" stroke="none">
+                <path d="M747 4469 c-162 -38 -297 -178 -337 -348 -24 -103 4 -245 68 -339 15 -22 363 -410 774 -862 l748 -822 2 -798 c3 -789 3 -799 24 -826 49 -67 130 -91 195 -60 19 9 221 166 449 349 299 239 420 342 432 367 16 32 18 77 18 502 l0 466 663 729 c364 401 707 778 761 838 110 122 151 194 169 300 29 171 -60 360 -214 452 -112 67 11 63 -1944 62 -1002 -1 -1786 -5 -1808 -10z m3580 -326 c50 -23 80 -91 64 -143 -8 -27 -204 -250 -782 -886 -424 -467 -778 -860 -788 -874 -14 -21 -17 -80 -21 -494 l-5 -469 -230 -188 c-126 -103 -233 -188 -237 -188 -5 -1 -8 290 -8 647 -1 591 -2 650 -18 678 -9 18 -361 411 -782 874 -421 463 -773 856 -782 873 -34 60 -15 131 45 167 31 20 64 20 1770 20 1607 0 1742 -1 1774 -17z"/>
+              </g>
+            </svg>
+          </button> 
+          <button class="btn btn-warning text-white" style="min-width:205px;text-align-last:center" (click)="filtro()">Filtrar</button>
+          <a *ngFor="let boton of botones"> 
+            <a *ngFor="let control of controller">
+              <a *ngIf="control.urlController===boton.relURL" class="enlace contras" href="{{boton.relURL}}" style="padding-left:10px;"><button class="btn btn-warning text-white" style="min-width:205px;text-align-last:center" >{{boton.nombre}}</button> </a>
+            </a> 
+          </a>
+        </div>
+        <div class="card mb-3 row"  *ngIf="mostrar == false">
+          <h3 class="text-primary text-center mt-3 mb-3" ><strong>Filtros</strong></h3>
+          <form [formGroup]="filtroForm" class=" row">
+            <div class="row" style="justify-content: space-evenly;">  
+              <div *ngFor="let filtrodata of filtrodatas" class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" style="min-width: 100%;" *ngIf="filtrodata.tipos === 'text'">
+                  <mat-label>{{filtrodata.Nombre}}</mat-label>
+                  <input matInput formControlName="{{filtrodata.formControlName}}"> 
+                </mat-form-field>
+                <mat-form-field *ngIf="filtrodata.tipos=='select'">
+                  <mat-label>{{filtrodata.Nombre}}</mat-label>
+                  <mat-select disableRipple  formControlName="estatus" >
+                    <mat-option value="" style="color: black;">Seleccionar...</mat-option>
+                    <mat-option *ngFor="let food of filtrodata.lista" [value]="food">
+                       {{food.tNombre}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="outline" style="min-width: 100%;" *ngIf="filtrodata.tipos === 'number'">
+                  <mat-label>{{filtrodata.Nombre}}</mat-label>
+                  <input type="number" matInput formControlName="{{filtrodata.formControlName}}"> 
+                </mat-form-field>  
+                <mat-form-field appearance="outline" style="min-width: 100%;" *ngIf="filtrodata.tipos === 'auto'">
+                  <mat-label>{{filtrodata.Nombre}}</mat-label>
+                  <input type="text" matInput formControlName="{{filtrodata.formControlName}}" (ngModelChange)="filtrodata.filter($event)" 
+                  [matAutocomplete]="auto"
+                  placeholder="{{filtrodata.nombre}}"
+                  [formControl]="filtrodata.formControl"
+                  >
+                  <mat-autocomplete #auto="matAutocomplete" [displayWith]="filtrodata.fnDisplay" (optionSelected)="filtrodata.selectopcion(filtrodata.formControl)">
+                    <mat-option value="" style="color: black;">Seleccionar...</mat-option>
+                    <mat-option *ngFor="let state of filtrodata.filteredOptions | async" [value]="state"   >
+                      <span>{{state.tNombre}}</span>
+                    </mat-option>
+                  </mat-autocomplete> 
+                </mat-form-field>  
+              </div>
+            </div>
+            <hr>
+            <div class="row" style="justify-content: space-evenly;">  
+              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                <mat-form-field appearance="outline" class="movilc" style="min-width: 100%;">
+                    <mat-label>Numero de registros</mat-label>
+                    <input formControlName="eNumeroRegistros" type="number"  id="eNumeroRegistros" matInput >
+                 </mat-form-field>
+            </div>
+            </div>
+          </form>
+        </div>
+        <div class="destock">
+          <div class="card">
+            <div class="card-body">
+              <ngx-spinner class="posiz" bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#c98989" type="ball-8bits" [fullScreen]="false"><p  class="loading  col-12" > </p> <br><h1 style="color: white">Loading... </h1></ngx-spinner>
+              <div style="overflow-y: auto; min-height: 350px;">
+                <table matSort mat-table [dataSource]="dataSource" class="table">
+                  <ng-container *ngFor="let column of columns" [matColumnDef]="column.columnDef">        
+                    <th mat-header-cell *matHeaderCellDef style="align-items: center;"  mat-sort-header sortActionDescription="Sort by {{column}}">{{column.header}}</th>
+                    <td mat-cell *matCellDef="let row">
+                      <div *ngIf="column.header === 'E' && MenuDesplegable.length >= 1" style="max-width: 1px;" >
+                        <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          </svg>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li *ngFor="let boton of MenuDesplegable">
+                            <a class="enlace" *ngIf="boton.nombre === 'Ver detalles'" (click)="getDetalles(column.cell(row))"><button class="btn dropdown-item">{{boton.nombre}} </button></a>
+                            <div *ngIf="(boton.nombre != 'Ver detalles') && (row.estatus !='Eliminado')">
+                              <div *ngFor="let control of controller">
+                                <a class="enlace" *ngIf="control.urlController===boton.relURL" (click)="relparams(column.cell(row))" href="{{control.urlController}}"><button class="btn dropdown-item">{{control.Nombres}}</button></a>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngIf="column.header != 'E'"> 
+                        <div *ngIf="column.header != 'Iconos'">
+                          {{column.cell(row)}}
+                        </div>
+                        <div *ngIf="column.header == 'Iconos'">
+                          <i class="fa fa-x2 material-icons">{{column.cell(row)}}</i>
+                        </div>
+                      </div>                                    
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+                <mat-paginator color="primary" style="background:#FFC107 ;" #paginator [pageSize]="5" showFirstLastButtons   [pageSizeOptions]="[5, 25, 50]"></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="movil">
+          <div class="card">
+            <div class="card-body">
+              <ngx-spinner class="posiz" bdColor="rgba(0, 0, 0, 0.8)" size="large" color="#c98989" type="ball-8bits" [fullScreen]="false"><p  class="loading  col-12" > </p> <br><h1 style="color: white">Loading... </h1></ngx-spinner>
+              <div style="overflow-y: auto; min-height: 350px;">
+                <table matSort mat-table  [dataSource]="dataSource2" class="container table  full-data-table ">
+                  <ng-container *ngFor="let column of columns2" [matColumnDef]="column.columnDef">  
+                    <th mat-header-cell *matHeaderCellDef style="align-items: center;" >{{column.header}}</th>
+                    <td mat-cell *matCellDef="let row"  >
+                      
+                      <div *ngIf="column.header === 'E' && MenuDesplegable.length >= 1" style="min-width: 1px; " >
+                        <button  type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16">
+                            <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0zm0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z"/>
+                          </svg>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li *ngFor="let boton of MenuDesplegable">
+                            <a class="enlace" *ngIf="boton.nombre === 'Ver detalles'" (click)="getDetalles(column.cell(row))"><button class="btn dropdown-item">{{boton.nombre}} </button></a>
+                            <div *ngIf="(boton.nombre != 'Ver detalles') && (row.estatus !='Eliminado')">
+                              <div *ngFor="let control of controller">
+                                <a class="enlace" *ngIf="control.urlController===boton.relURL" (click)="relparams(column.cell(row))" href="{{control.urlController}}"><button class="btn dropdown-item">{{control.Nombres}}</button></a>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                      <div *ngIf="column.header != 'E'">
+                        <mat-expansion-panel  class="mat-expansion-panelcliente" hideToggle style="box-shadow:none;color: #0146af;font-size:13px; background:rgba(0,0,0,-1.4);">
+                          <mat-expansion-panel-header >
+                            <mat-panel-description style="color: #0146af; font-size:15px; min-width:80%;">{{column.cell(row)}}</mat-panel-description>
+                            <mat-panel-description >
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+                              </svg>
+                            </mat-panel-description>
+                          </mat-expansion-panel-header>
+                          <div *ngFor="let column2 of columns">
+                            <div *ngIf="(column2.header != column.header) && (column2.header != 'E') && (column2.header != 'Iconos')">
+                              {{column2.header}} : <br>{{column2.cell(row)}} 
+                              <hr>
+                            </div>
+                            <div *ngIf="(column2.header != column.header) && (column2.header != 'E') && (column2.header == 'Iconos')">
+                              {{column2.header}} : <br><i class="{{column2.cell(row)}}"></i> 
+                              <hr>
+                            </div>
+                          </div>
+                        </mat-expansion-panel> 
+                      </div>
+                    </td>
+                  </ng-container>
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+                </table>
+                <mat-paginator color="primary" style="background:#FFC107 ;" #paginator2 [pageSize]="5" showFirstLastButtons   [pageSizeOptions]="[5, 25, 50]"></mat-paginator>
+              </div>
+            </div>
+          </div>
+        </div>      
+      </div>
+    </div>
+  </div>

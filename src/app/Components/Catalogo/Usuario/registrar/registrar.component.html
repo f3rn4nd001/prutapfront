@@ -1,0 +1,150 @@
+<div class="resolicion">
+  <div class="container" style="padding-left: calc(var(--bs-gutter-x) * 2.5);">
+    <nav class="mt-3 navbar navbar-expand-lg colorprimary center">
+      <div class="container-fluid center">
+        <a class="navbar-brand center" *ngIf="ecodUsuario ===  '' "><h1 class="texttitulo">Nuevo usuario</h1></a>
+        <a class="navbar-brand center" *ngIf="ecodUsuario !=  '' "><h1 class="texttitulo">Editar usuario</h1></a>
+      </div> 
+    </nav>
+    <div class="row" style="justify-content:end">
+        <div class="mt-3 mb-2 col-md-12 col-lg-4 col-xl-2" >
+            <button matTooltip="Regresar a la consulta" style="min-width:100%; min-height: 80%; text-align-last:center; color:white; padding-left:10px" type="button" class="btn btn-warning text-white" (click)="reConsulta()" >Consulta</button> 
+        </div>
+        
+        <div class="mt-3 mb-2 col-md-12 col-lg-4 col-xl-2" [matTooltip]="validadContras == false?'Ingrese contradeña para habilitad':'Guardar datos'">
+            <button  style="min-width:100%; min-height: 80%; text-align-last:center; color:white; padding-left:10px"  [disabled]="validadContras == false " type="button" class="btn btn-warning text-white" (click)="Guardar()">Guardar</button> 
+        </div>
+        <div class="card">
+          <div class="card-body row ">
+            <ngx-spinner class="posiz" bdColor = "rgba(0, 0, 0, 0.8)" size = "large" color = "#c98989" type = "ball-8bits" [fullScreen] = "false"><p  class="  col-12" > </p> <br><h1 style="color: white">Loading... </h1></ngx-spinner>
+          
+            <div class="col-md-12 col-lg-4 col-xl-4">
+              <form class="container row" [formGroup]="NuevoFormGroup"(ngSubmit)="Guardar()">
+                <h3 style="font-family: 1.25em;">Usuario</h3> 
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label for="tNombre">Nombe</mat-label>
+                    <input  formControlName="tNombre"  id="tNombre" matInput required>
+                    <mat-error>El nombre es requerido</mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Apellido</mat-label>
+                      <input  formControlName="tApellido" id="tApellido" matInput required>
+                      <mat-error>El apellido es requerido</mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>CURP</mat-label>
+                    <input (keyup)="mayusculaCURP()"  maxlength="18" formControlName="tCRUP"  id="tCRUP" matInput>
+                    <mat-label align="end">  {{NuevoFormGroup.get('tCRUP')?.value ? NuevoFormGroup.get('tCRUP')?.value.length : 0}} / 18</mat-label>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>RFC </mat-label>
+                    <input (keyup)="mayusculaRFC()"   maxlength="13" formControlName="tRFC"  id="tRFC" matInput>
+                    <mat-label align="end"> {{NuevoFormGroup.get('tRFC')?.value ? NuevoFormGroup.get('tRFC')?.value.length : 0}} / 13</mat-label>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Edad</mat-label>
+                    <input  formControlName="nEdad"  type="number" id="nEdad" matInput>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Sexo</mat-label>
+                    <mat-select disableRipple  formControlName="tSexo">
+                      <mat-option *ngFor="let food of Sexo" [value]="food.tNombre">
+                        {{food.tNombre}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Lada</mat-label>
+                    <input  formControlName="nLada"  type="number" id="nLada" matInput>
+                  </mat-form-field>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Telefoono</mat-label>
+                    <input  formControlName="nTelefono"  type="number" id="nTelefono" matInput>
+                  </mat-form-field>
+                
+                </div>
+                <div>
+                  <mat-form-field appearance="outline" class="movilc">
+                    <mat-label>Fecha de nacimiento</mat-label>
+                    <input  type="date" formControlName="fhNacimiento"  id="fhNacimiento" matInput>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <app-select-tipo-usuario [tipoUsuarioPadre]="NuevoFormGroup.get('ecodTipoUsuario')?.value" (tipoUsuarioSeleccionado)="onTipoUsuarioSeleccionado($event)"></app-select-tipo-usuario>
+                </div>
+                <mat-form-field appearance="outline" class="movilc">
+                  <mat-label>Notas</mat-label>
+                  <textarea  formControlName="tNotas"  type="text" id="tNotas" matInput></textarea>
+                </mat-form-field>
+                <div>
+                  <input type="file"(change)="Imagen($event)">
+                </div>
+               
+                <div *ngIf="ecodUsuario !=  ''">
+                  <app-select-estatus [estatusPadre]="NuevoFormGroup.get('ecodEstatus')?.value" (estatusSeleccionado)="onEstatus($event)"></app-select-estatus>
+                </div>
+              </form>
+            </div>
+
+
+            <div class="col-md-12 col-lg-8 col-xl-8">
+              <h3>Datos Genelares {{Generar.value.formArray.length}}</h3>
+              <hr>
+              <form class="container" [formGroup]="Generar" (ngSubmit)="Guardar()">
+                <div class="col-md-12 col-lg-12 col-xl-12 row" formArrayName="formArray">   
+                  <div class="direccion row col-12" [formGroupName]="i" *ngFor="let direccion of Generar.controls['formArray'].controls; let i = index"> 
+                    <div class="col-md-12 col-lg-11 col-xl-11 row mb-5">
+                      <div class="mb-3 col-md-12 col-lg-5 col-xl-5">
+                        <mat-form-field appearance="outline" class="movilc">
+                          <mat-label>Correo</mat-label>
+                          <input formControlName="Correo"  id="Correo" matInput>
+                        </mat-form-field>
+                      </div>
+                      <div *ngIf="direccion.value.ecodCorreo ==  null || direccion.value.ecodCorreo == '' " class=" mb-3 col-md-12 col-lg-7 col-xl-7">
+                        <mat-form-field appearance="outline" class="movilc">
+                          <mat-label>Contraseña</mat-label>
+                          <input  type="text" formControlName="Contrasena" id="Contrasena" matInput>
+                        </mat-form-field>
+                      </div>
+                      <hr style="border-top: black solid; opacity: 0.25;">
+                    </div>
+                    <div class="col-md-12 col-lg-1 col-xl-1"  *ngIf="direccion.value.ecodCorreo ==  null || direccion.value.ecodCorreo == '' ">
+                      <button class="btn col-12 mt-5 mb-5" mat-raised-button color="warn" type="button" (click)="eliminarinputConcepto(i)">
+                        <svg xmlns="http://www.w3.org/2000/svg" color="whith    " width="25" height="25" fill="currentColor" class="bi bi-dash-circle" viewBox="0 0 16 16">
+                          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="   col-md-12 col-lg-6 col-xl-12">
+                    <button class="btn center colorprimary col-md-10 col-lg-5 col-xl-5" style="color:white; background:#ffc107" mat-raised-button color="#ffc107" type="button" (click)="annadirinputConcepto()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-shield-plus" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
