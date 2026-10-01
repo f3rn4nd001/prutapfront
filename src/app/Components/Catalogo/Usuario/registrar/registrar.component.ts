@@ -101,6 +101,7 @@ export class RegistrarComponent {
     this.annadirinputConcepto();   
   }
 
+  //valida y la url de la vista esta en el local menu
   valmenupag(){
     if (typeof window !== 'undefined' && localStorage) {
       this.ecodUsuario = localStorage.getItem('ecod') || '';        
