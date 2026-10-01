@@ -227,13 +227,16 @@ private cipher= inject(ShiftTextService);
               submenu.forEach((elementb:any) => {
                 if (elementb.ecodSubmenu != null || elementb.tNombreSubMenu != null) {
                   if (elementa.ecodMenu == elementb.ecodMenu) {
+                        
                     if (elementarutasb.id==elementb.ecodSubmenu) {
                       elementarutasb.valor=true
                       elementarutasb.Controlador.forEach((elementarutasc:any) => {
                         control.forEach((elementc:any) => {
+                            console.log(elementarutasc.id);
+                    
                           if (elementa.ecodMenu == elementb.ecodMenu && elementb.ecodMenu == elementc.ecodMenu && elementb.ecodSubmenu == elementc.ecodSubmenu ) {
-                            if (elementc.ecodController != null || elementc.tNombreController != null) {
-                              if (elementarutasc.id==elementc.ecodController) {
+                            if (elementc.ecodController != null || elementc.tNombreController != null) {  
+                              if (elementarutasc.id == elementc.ecodController) {
                                 elementarutasc.valor=true
                               }         
                             }
